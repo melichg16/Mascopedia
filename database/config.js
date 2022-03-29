@@ -8,6 +8,8 @@ const options = {
 };
 
 const dbClient = new CosmosClient( options );
+const databaseClient = dbClient.database(process.env.DB_NAME);
+const containerClient = databaseClient.container(process.env.DB_CONTAINER);
 
 /**
 * Database configuration 
@@ -19,6 +21,7 @@ const dbConnection = async() => {
     try {
 
         await createDbIfNotExist();
+        await createContainerIfNotExist();
         await readDataBase();
         console.log( `Reading database:${process.env.DB_NAME}\n`.cyan );
 
@@ -37,6 +40,15 @@ const createDbIfNotExist = async() => {
     await dbClient.databases.createIfNotExists( { id: process.env.DB_NAME } );
 }
 
+const createContainerIfNotExist = async() => {
+
+    await dbClient.database( process.env.DB_NAME ).containers.createIfNotExists(
+        { id: process.env.DB_CONTAINER },
+        { offerThroughput: 400 }
+    );
+
+}
+
 /**
 * Read database 
 * @since   27.02.2022
@@ -48,5 +60,5 @@ const readDataBase = async() => {
 
 module.exports = {
     dbConnection,
-    dbClient
+    containerClient
 }

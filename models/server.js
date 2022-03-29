@@ -1,8 +1,8 @@
-const express                    = require('express');
-const cors                       = require('cors');
-const fileUpload                 = require('express-fileupload');
-const colors                     = require('colors');
-const { dbConnection }           = require('../database/config');
+const express          = require('express');
+const cors             = require('cors');
+const fileUpload       = require('express-fileupload');
+const colors           = require('colors');
+const { dbConnection } = require('../database/config');
 
 /**
 * Server
@@ -23,14 +23,14 @@ class Server {
         * Routes
         **/ 
         this.routes  = {
-            dummy : '/api/dummy',
+            users : '/api/users',
         }
         /**
         * Database connection, middlewares and routes
         **/ 
         this.connectToDB();
         this.middlewares();
-        //this.route();
+        this.route();
 
     }
 
@@ -64,7 +64,7 @@ class Server {
     * @since 27.02.2022
     **/ 
     route() {
-        this.app.use( this.routes.dummy, require( '../routes/dummy.routes' ) );
+        this.app.use( this.routes.users, require( '../routes/users.routes' ) );
     }
 
     /**
