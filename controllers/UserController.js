@@ -1,5 +1,5 @@
 const { request, response} = require('express');
-const { containerClient }  = require('../database/config');
+const { BasicInsertOperation } = require('../database/CrudOperations');
 const { encryptPwd } = require('../helpers/password-encryption');
 const { UserModel } = require('../models/User');
 
@@ -22,8 +22,8 @@ const createUser = async( req =  request, res = response ) => {
 
     try {
 
-        const { resource: createdItem } = await containerClient.items.create( userTmp );
-        return res.status( 200 ).json( createdItem );
+        const createdUser = BasicInsertOperation( userTmp );
+        return res.status( 200 ).json( createdUser );
 
     } catch (error) {
         return res.status( 400 ).json({
