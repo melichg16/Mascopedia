@@ -24,6 +24,7 @@ class Server {
         **/ 
         this.routes  = {
             users : '/api/users',
+            auth  : '/api/auth'
         }
         /**
         * Database connection, middlewares and routes
@@ -65,6 +66,7 @@ class Server {
     **/ 
     route() {
         this.app.use( this.routes.users, require( '../routes/users.routes' ) );
+        this.app.use( this.routes.auth, require( '../routes/auth.routes' ) );
     }
 
     /**
