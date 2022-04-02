@@ -17,6 +17,6 @@ router.post('/', [
     check('password', 'You must provide a password').not().isEmpty(),
     checkFields
 ], createUser);
-router
+
 
 module.exports = router;
