@@ -18,7 +18,7 @@ const login = async(req = request, res = response) => {
 
     try {
 
-        const userTemp = await BasicRetrieveOperation(`SELECT * from c where c.email = "${ email }"`);
+        const userTemp = await BasicRetrieveOperation(`SELECT * from c where c.email = "${ email }" AND c.type= USER`);
         const retrievedUser = userTemp[0];
 
         //user validations
